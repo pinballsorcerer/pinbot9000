@@ -24,6 +24,10 @@ class TwitchPinBot(irc.bot.SingleServerIRCBot):
         if (e.arguments[0] == "!marco"):
             c.privmsg(self.channel, "Polo!")
 
+    def on_ping(self, c, e):
+        print("Received ping")
+        c.send_items("PONG", ":" + e.target)
+
 def main():
     print("hello, I am a chatbot")
     print("starting up")
