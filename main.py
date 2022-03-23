@@ -21,6 +21,8 @@ class TwitchPinBot(irc.bot.SingleServerIRCBot):
 
     def on_pubmsg(self, c, e):
         print("Public message received")
+        if (e.arguments[0] == "!marco"):
+            c.privmsg(self.channel, "Polo!")
 
 def main():
     print("hello, I am a chatbot")
