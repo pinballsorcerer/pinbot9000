@@ -23,6 +23,11 @@ class TwitchPinBot(irc.bot.SingleServerIRCBot):
         print("Public message received")
         if (e.arguments[0] == "!marco"):
             c.privmsg(self.channel, "Polo!")
+        splat = e.arguments[0].split(' ')
+        if (len(splat) >= 2 and
+            splat[0] == "@" + self._nickname):
+            if (splat[1].lower() in ("hi", "hi,", "hello", "hello,")):
+                c.privmsg(self.channel, "Hi @" + e.source.nick + "!")
 
     def on_ping(self, c, e):
         print("Received ping")
