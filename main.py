@@ -6,7 +6,7 @@ class TwitchPinBot(irc.bot.SingleServerIRCBot):
         with open('C:\\Users\\Pinball\\password.txt', 'r') as f:
             password = f.readline()
         irc.bot.SingleServerIRCBot.__init__(self, [("irc.chat.twitch.tv", 6667, password)], "pinbot9000", "pinbot9000")
-        self.channel = "#PinballSorcerer"
+        self.channel = "#pinballsorcerer"
 
     def on_welcome(self, c, e):
         print("We were welcomed in to the server!")
