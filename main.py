@@ -6,7 +6,7 @@ import irc.bot
 class TwitchPinBot(irc.bot.SingleServerIRCBot):
     '''A specific implementation of SingleServerIRCBot for my channel'''
     def __init__(self):
-        with open('C:\\Users\\Pinball\\password.txt', 'r') as file:
+        with open('C:\\Users\\Pinball\\password.txt', 'rt', encoding='utf_8') as file:
             password = file.readline()
         irc.bot.SingleServerIRCBot.__init__(
             self,
@@ -17,7 +17,11 @@ class TwitchPinBot(irc.bot.SingleServerIRCBot):
         self.channel = "#pinballsorcerer"
         self.greetings = []
 
-    def on_join(self, connection):
+    def on_welcome(self, connection, _):
+        '''Join the main stream channel after connecting to the server'''
+        connection.join(self.channel)
+
+    def on_join(self, connection, _):
         '''Send an announcement to the channel upon joining'''
         connection.privmsg(self.channel, "Greetings chat!")
 
@@ -29,10 +33,12 @@ class TwitchPinBot(irc.bot.SingleServerIRCBot):
         splat = event.arguments[0].split(' ')
         if (len(splat) >= 2 and
             splat[0].lower() == "@" + self._nickname.lower()):
-            if (splat[1].lower() in ("hi", "hi,", "hello", "hello,")):
+            if splat[1].lower() in ("hi", "hi,", "hello", "hello,"):
                 greeting = random.choice(self.greetings) if self.greetings else ""
                 connection.privmsg(self.channel, f"Hi @{event.source.nick}! {greeting}")
 
+    #We think this needs to be a member function for it to be called by the base class
+    #pylint: disable-next=no-self-use
     def on_ping(self, connection, event):
         '''Reply to ping messages with a pong, as expected by Twitch IRC'''
         print("Received ping")
@@ -45,7 +51,7 @@ def main():
 
     bot = TwitchPinBot()
 
-    with open('greetings.txt', 'r') as file:
+    with open('greetings.txt', 'rt', encoding='utf_8') as file:
         bot.greetings = [line.strip() for line in file.readlines()]
     bot.start()
 
