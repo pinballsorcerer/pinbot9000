@@ -21,11 +21,11 @@ class TwitchPinBot(irc.bot.SingleServerIRCBot):
 
     def on_pubmsg(self, c, e):
         print("Public message received")
-        if (e.arguments[0] == "!marco"):
+        if (e.arguments[0].lower() == "!marco"):
             c.privmsg(self.channel, "Polo!")
         splat = e.arguments[0].split(' ')
         if (len(splat) >= 2 and
-            splat[0] == "@" + self._nickname):
+            splat[0].lower() == "@" + self._nickname.lower()):
             if (splat[1].lower() in ("hi", "hi,", "hello", "hello,")):
                 c.privmsg(self.channel, "Hi @" + e.source.nick + "!")
 
