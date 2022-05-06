@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-
-from distutils.core import setup
+'''Setup package metadata'''
+from setuptools import setup
 
 setup(name='pinbot9000',
       version='1.0',
