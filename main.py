@@ -51,8 +51,12 @@ def main():
 
     bot = TwitchPinBot()
 
-    with open('greetings.txt', 'rt', encoding='utf_8') as file:
-        bot.greetings = [line.strip() for line in file.readlines()]
+    try:
+        with open('greetings.txt', 'rt', encoding='utf_8') as file:
+            bot.greetings = [line.strip() for line in file.readlines()]
+    except OSError:
+        print("No 'greetings.txt' file found - create one for random responses")
+
     bot.start()
 
 if __name__ == "__main__":
