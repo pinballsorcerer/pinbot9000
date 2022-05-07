@@ -7,5 +7,8 @@ setup(name='pinbot9000',
       description='A Twitch chatbot',
       author='PinballSorcerer',
       url='https://github.com/pinballsorcerer/pinbot9000/',
-      py_modules = ['main']
+      py_modules = ['main'],
+      install_requires=[
+        'irc'
+      ]
      )
